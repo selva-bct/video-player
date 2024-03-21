@@ -1,0 +1,23 @@
+h1 {
+  color: white;
+  background-color: black;
+}
+
+/* .diagnosis-categories, */
+#diagnosis-category,
+#diagnosis-videos {
+  display: flex;
+  cursor: pointer;
+  width: 100vh;
+  overflow: scroll;
+}
+.diagnosis-category {
+  border: 1px solid;
+  padding: 5px 10px;
+}
+.diagnosis-video-thumbnail {
+  cursor: pointer;
+}
+.diagnosis-video.active {
+  border: 1px solid red;
+}
