@@ -18,6 +18,7 @@ h1 {
 .diagnosis-video-thumbnail {
   cursor: pointer;
 }
-.diagnosis-video.active {
-  border: 1px solid red;
+.diagnosis-video.active,
+.diagnosis-category.active {
+  box-shadow: 1px solid red;
 }

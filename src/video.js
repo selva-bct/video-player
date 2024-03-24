@@ -23,7 +23,7 @@ function generateHtmlForDiagnosisVideos(videos) {
   if (videos.length) {
     videos.forEach(function (video, index) {
       template += `
-        <div class="diagnosis-video diagnosis-${index} ${currentVideo === video?.videoUrl ? "active" : ""}" onclick="setCurrentVideo('${video?.videoUrl}');">
+        <div class="diagnosis-video diagnosis-${index} n-item ${currentVideo === video?.videoUrl ? "active" : ""}" onclick="setCurrentVideo('${video?.videoUrl}');">
           <img src="${video.thumbnailUrl}" width="300" height="200" class="diagnosis-video-thumbnail">
         </div>
       `;
@@ -40,7 +40,8 @@ function generateHtmlForDiagnosisCategory(diagnosisCategory) {
   if (diagnosisCategory.length) {
     diagnosisCategory.forEach(function (category, index) {
       template += `
-        <div class="diagnosis-category diagnosis-${index}" onclick="setCurrentCategory('${category}');">
+        <div class="diagnosis-category diagnosis-${index} n-item ${currentCategory}
+        ${currentCategory === category ? "active" : ""}" onclick="setCurrentCategory('${category}');">
           ${category}
         </div>
       `;
@@ -68,6 +69,7 @@ var setCurrentVideo = function (videoUrl) {
 var setCurrentCategory = function (category) {
   if (category) {
     currentCategory = category;
+    updateDiagnosisCategoryDom();
     currentCategoryVideos = videosByDiagnosis[category]?.videos;
     updateVideoListDom();
   }
@@ -78,9 +80,10 @@ function updateVideoListDom() {
   videosDom.innerHTML = generateHtmlForDiagnosisVideos(currentCategoryVideos);
 }
 
-const videoCategoryDom = document.getElementById("diagnosis-category");
-
-videoCategoryDom.innerHTML =
-  generateHtmlForDiagnosisCategory(diagnosisCategory);
-
+function updateDiagnosisCategoryDom() {
+  const videoCategoryDom = document.getElementById("diagnosis-category");
+  videoCategoryDom.innerHTML =
+    generateHtmlForDiagnosisCategory(diagnosisCategory);
+}
+updateDiagnosisCategoryDom();
 updateVideoListDom();

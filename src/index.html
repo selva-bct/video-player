@@ -8,12 +8,17 @@
   <body>
     <div id="app"></div>
     <script src="Data/home-data.js"></script>
-
     <!-- Videos section -->
-    <div id="videoSection">
-      <div id="diagnosis-category"></div>
-      <div id="diagnosis-videos"></div>
+    <div id="videoSection" class="navigatable">
+      <div class="n-row">
+        <div id="diagnosis-category" class="n-col"></div>
+      </div>
+      <div class="n-row">
+        <div id="diagnosis-videos" class="n-col"></div>
+      </div>
     </div>
     <script src="video.js"></script>
+    <script src="video-page-remote-key-events.js"></script>
+    <script async defer src="navigate.js"></script>
   </body>
 </html>
