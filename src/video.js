@@ -90,12 +90,12 @@ function togglePlayerMute() {
 function increasePlayerVolume() {
   var myPlayer = videojs("my-video");
   const currentVolume = myPlayer.volume();
-  myPlayer.volume(currentVolume + 1);
+  myPlayer.volume(currentVolume + 0.25);
 }
 function decreasePlayerVolume() {
   var myPlayer = videojs("my-video");
   const currentVolume = myPlayer.volume();
-  if (currentVolume != 0) myPlayer.volume(currentVolume - 1);
+  if (currentVolume != 0) myPlayer.volume(currentVolume - 0.25);
 }
 
 /**
@@ -129,7 +129,7 @@ function pauseVideo() {
 function getvideoPlayerStats() {
   var myPlayer = videojs("my-video");
   var stats = {
-    currentTime: myPlayer.currentTime(120),
+    currentTime: myPlayer.currentTime(),
     totalVideoLength: myPlayer.duration(),
     remainingTime: myPlayer.remainingTime(),
   };
