@@ -1,6 +1,7 @@
 h1 {
-  color: white;
-  background-color: black;
+  color: black;
+  border: 2px black solid;
+  /* background-color: black; */
 }
 
 /* .diagnosis-categories, */

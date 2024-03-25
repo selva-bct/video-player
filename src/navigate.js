@@ -22,78 +22,168 @@ function makeid(length) {
   return result;
 }
 
+function getNextNavElement(elements, currentElement, currentElementIndex) {
+  var nextElement;
+  const totalElements = elements.length;
+  if (currentElementIndex === totalElements - 1) {
+    if (currentElement) {
+      const parent = currentElement.closest(".n-col");
+      nextElement = parent?.nextElementSibling;
+      if (nextElement) {
+        nextElement = nextElement.getElementsByClassName("n-item")?.[0];
+      }
+    }
+  } else {
+    nextElement = elements[currentElementIndex + 1];
+  }
+  return nextElement;
+}
+
+function getDownNavElement(elements, currentElement, currentElementIndex) {
+  var nextElement;
+  const totalElements = elements.length;
+  if (currentElementIndex === totalElements - 1) {
+    if (currentElement) {
+      const parent = currentElement.closest(".n-row");
+      nextElement = parent?.nextElementSibling;
+      if (nextElement) {
+        nextElement = nextElement.getElementsByClassName("n-item")?.[0];
+      }
+    }
+  } else {
+    nextElement = elements[currentElementIndex + 1];
+  }
+  return nextElement;
+}
+
+function getPreviousNavElement(elements, currentElement, currentElementIndex) {
+  var previousElement;
+  if (currentElementIndex === 0) {
+    if (currentElement) {
+      const parent = currentElement.closest(".n-col");
+      previousElement = parent?.previousElementSibling;
+      if (previousElement) {
+        previousElement = previousElement.getElementsByClassName("n-item")?.[0];
+      }
+    }
+  } else {
+    previousElement = elements[currentElementIndex - 1];
+  }
+  return previousElement;
+}
+
+function getUpNavElement(elements, currentElement, currentElementIndex) {
+  var previousElement;
+  if (currentElementIndex === 0) {
+    if (currentElement) {
+      const parent = currentElement.closest(".n-row");
+      previousElement = parent?.previousElementSibling;
+      if (previousElement) {
+        previousElement = previousElement.getElementsByClassName("n-item")?.[0];
+      }
+    }
+  } else {
+    previousElement = elements[currentElementIndex - 1];
+  }
+  return previousElement;
+}
+
 function findRootElements() {
   navigatableElements = document.getElementsByClassName(
     ROOT_ELEMENT_CLASS_NAME
   );
-  for (let index = 0; index < navigatableElements.length; index++) {
+  const totalElements = navigatableElements.length;
+  for (let index = 0; index < totalElements; index++) {
     const element = navigatableElements[index];
-    console.log(element);
-    const id = makeid(5);
+    const id = makeid(10);
+    element.setAttribute("data-id", id);
     navigateObj[id] = {
       element,
       id,
       isRoot: true,
       type: ROOT_ELEMENT_CLASS_NAME,
+      /*up: getPreviousNavElement(navigatableElements, element, index),
+      down: getNextNavElement(navigatableElements, element, index),
+      left: null,
+      right: null,*/
     };
+    findnRowElements(element);
   }
 }
 
-function findnRowElements() {
-  navigatableElements = document.getElementsByClassName(
+function findnRowElements(domElement) {
+  const navigatableElements = domElement.getElementsByClassName(
     N_ROW_ELEMENT_CLASS_NAME
   );
-  for (let index = 0; index < navigatableElements.length; index++) {
+  const totalElements = navigatableElements.length;
+  for (let index = 0; index < totalElements; index++) {
     const element = navigatableElements[index];
-    console.log(element);
-    const id = makeid(5);
+    const id = makeid(10);
+    element.setAttribute("data-id", id);
     navigateObj[id] = {
       element,
       id,
       isRoot: false,
       type: N_ROW_ELEMENT_CLASS_NAME,
+      /*left: null,
+      right: null,
+      up: getPreviousNavElement(navigatableElements, element, index),
+      down: getNextNavElement(navigatableElements, element, index),*/
     };
+    findnColElements(element);
   }
 }
 
-function findnColElements() {
-  navigatableElements = document.getElementsByClassName(
+function findnColElements(domElement) {
+  const navigatableElements = domElement.getElementsByClassName(
     N_COL_ELEMENT_CLASS_NAME
   );
-  for (let index = 0; index < navigatableElements.length; index++) {
+  const totalElements = navigatableElements.length;
+  for (let index = 0; index < totalElements; index++) {
     const element = navigatableElements[index];
-    console.log(element);
-    const id = makeid(5);
+    // element.id = id;
+    const id = makeid(10);
+    element.setAttribute("data-id", id);
     navigateObj[id] = {
       element,
       id,
       isRoot: false,
       type: N_COL_ELEMENT_CLASS_NAME,
+      /*left: getPreviousNavElement(navigatableElements, element, index),
+      right: getNextNavElement(navigatableElements, element, index),
+      up: null,
+      down: null,*/
     };
+    findnItemElements(element);
   }
 }
 
-function findnItemElements() {
-  navigatableElements = document.getElementsByClassName(
+function findnItemElements(domElement) {
+  const navigatableElements = domElement.getElementsByClassName(
     N_ITEM_ELEMENT_CLASS_NAME
   );
-  for (let index = 0; index < navigatableElements.length; index++) {
+  const totalElements = navigatableElements.length;
+  for (let index = 0; index < totalElements; index++) {
     const element = navigatableElements[index];
-    console.log(element);
-    const id = makeid(5);
+    const id = makeid(10);
+    element.setAttribute("data", id);
     navigateObj[id] = {
       element,
       id,
       isRoot: false,
       type: N_ITEM_ELEMENT_CLASS_NAME,
+      left: getPreviousNavElement(navigatableElements, element, index),
+      right: getNextNavElement(navigatableElements, element, index),
+      up: getUpNavElement(navigatableElements, element, index),
+      down: getDownNavElement(navigatableElements, element, index),
     };
   }
 }
 function setup() {
   findRootElements();
-  findnRowElements();
-  findnColElements();
-  findnItemElements();
+  // findnRowElements();
+  // findnColElements();
+  // findnItemElements();
 }
 function init() {
   setup();
