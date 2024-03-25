@@ -17,6 +17,12 @@ function registerKeys() {
 function keyPressUp() {
   console.log("You pressed the up key");
   root.innerHTML = "UP";
+  const event = new CustomEvent("REMOTE_ACTION", {
+    detail: JSON.stringify({
+      action: "up",
+    }),
+  });
+  document.dispatchEvent(event);
 }
 
 function keyPressDown() {
